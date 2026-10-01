@@ -52,7 +52,7 @@ public class UserService {
     }
 
     public UserResponse updateMe(Authentication authentication, UpdateUserRequest request) {
-        UserPrincipal userPrincipal = (UserPrincipal)  authentication.getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         String email = userPrincipal.getUsername();
         User user = userRepo.findByEmail(email)
                 .orElseThrow(() ->
@@ -90,7 +90,7 @@ public class UserService {
 
 
         MultipartFile avatar = request.getAvatar();
-        if(avatar != null && !avatar.isEmpty()){
+        if (avatar != null && !avatar.isEmpty()) {
             String avatarUrl = cloudinaryService.upload(avatar);
             user.setAvatar(avatarUrl);
         }
@@ -98,6 +98,5 @@ public class UserService {
 
         return new UserResponse(savedUser.getId(), savedUser.getName(), savedUser.getEmail(), savedUser.getPhone(), savedUser.getAvatar(), savedUser.getRole(), savedUser.getStatus());
     }
-
 
 }
