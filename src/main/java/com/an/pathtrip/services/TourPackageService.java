@@ -31,6 +31,20 @@ public class TourPackageService {
             throw new AppException("Tên tour đã tồn tại", 409);
         }
 
+        if (request.getDurationDays() < 1) {
+            throw new AppException(
+                    "Thời gian tour phải ít nhất 1 ngày",
+                    400
+            );
+        }
+
+        if (request.getDurationDays() != request.getItineraries().size()) {
+            throw new AppException(
+                    "Số lượng lịch trình phải bằng số ngày của tour",
+                    400
+            );
+        }
+
         TourPackage tourPackage = new TourPackage();
         tourPackage.setName(request.getName());
         tourPackage.setDescription(request.getDescription());
